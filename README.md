@@ -2,7 +2,7 @@
 
 netconfBulkOps is a Python script for NETCONF bulk operations (get and edit-config) implemented as a minimum viable product (MVP).
 
-A simple inventory file is used to describe the devices. A second file, containing either the NETCONF configuration payload or a subtree-filter, will then be applied to every device in the inventory. The results of the bulk operation is stored to corresponding files.
+A simple inventory file is used to describe the devices. A second file, containing either the NETCONF configuration payload or a subtree-filter, will then be applied to every device in the inventory. The results of the bulk operation is stored in corresponding files.
 
 ![netconfBulkOps overview](doc/images/ncbo.png)
 
@@ -123,7 +123,7 @@ After the script is completed, you'll find a file per device containing the resu
 
 ### Write data (NETCONF edit-config)
 
-Create a file containing the configuration you want to apply (outermost tag must be `<config></config>` tags).
+Create a file containing the configuration you want to apply (outermost tag must be `<config></config>`).
 
 **Example**
 ```xml
@@ -151,4 +151,4 @@ After the script is completed, a HTML report about the configuration results is 
 
 **Example report**
 
-<img src="doc/images/example_report.png" width="300"/>
+<img src="doc/images/example_report.png" width="350"/>
