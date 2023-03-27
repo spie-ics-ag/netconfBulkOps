@@ -18,6 +18,9 @@ logger = logging.getLogger(__name__)
 
 
 def render_jinja(template, **kwargs):
+    """
+    Dynamically renders and returns a jinja template.
+    """
     env = Environment(
         lstrip_blocks=True,
         trim_blocks=True,
@@ -43,6 +46,10 @@ def string_to_file(string, file):
 
 
 def get_and_save(device, filter_):
+    """
+    Connects to a device using NETCONF, uses get with a subtree filter and stores the result
+    to a file.
+    """
     try:
         manager.HUGE_TREE_DEFAULT = True
         with manager.connect(
@@ -66,6 +73,9 @@ def get_and_save(device, filter_):
 
 
 def edit_config(device, cfg):
+    """
+    Connects to a device using NETCONF and performs edit-config to the running datastore using the provided configuration.
+    """
     result = {"device": device, "ok": False}
     try:
         with manager.connect(
