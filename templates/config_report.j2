@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>Config report {{date_time}}</title>
+<style>
+h3 {
+  font-family: arial, sans-serif;
+}
+
+p {
+  font-family: arial, sans-serif;
+  width: 75%;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 75%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+textarea {
+    border: none;
+    width: 75%;
+    height: 300px;
+}
+</style>
+</head>
+
+<h3>Results (Config run: {{ date_time }})</h3>
+<p>
+<table>
+    <tr>
+        <th>Device</th>
+        <th>Status</th>
+    </tr>
+    {% for result in results %}
+    <tr>
+        <td>{{ result.device }}</td>
+        <td>
+            {% if result.ok %}
+                &#x1F7E2; 
+            {% else %}
+                &#x1F534;
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</p>
+
+<h3>Config</h3>
+<p>
+<textarea>
+{{ config }}
+</textarea>
+</p>
+</html>
