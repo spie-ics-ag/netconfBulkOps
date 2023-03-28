@@ -152,3 +152,11 @@ After the script is completed, a HTML report about the configuration results is 
 **Example report**
 
 <img src="doc/images/example_report.png" width="350"/>
+
+
+### Sandboxes
+
+You may test this script using the following DevNet sandboxes:
+
+- [IOS XE on CSR Latest Code AlwaysOn](https://devnetsandbox.cisco.com/RM/Diagram/Index/7b4d4209-a17c-4bc3-9b38-f15184e53a94?diagramType=Topology)
+- [IOS XE on CSR Recommended Code AlwaysOn](https://devnetsandbox.cisco.com/RM/Diagram/Index/27d9747a-db48-4565-8d44-df318fce37ad?diagramType=Topology)
