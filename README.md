@@ -43,6 +43,7 @@ source .venv/bin/activate
 
 Install dependencies
 ```bash
+pip install pip --upgrade
 pip install -r requirements.txt
 ```
 
