@@ -1,3 +1,5 @@
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/spie-ics-ag/netconfBulkOps)
+
 # netconfBulkOps
 
 netconfBulkOps is a Python script for NETCONF bulk operations (get and edit-config) implemented as a minimum viable product (MVP).
