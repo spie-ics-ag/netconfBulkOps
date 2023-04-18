@@ -45,7 +45,7 @@ def string_to_file(string, file):
         fo.write(string)
 
 
-def get_and_save(device, filter_):
+def get_and_save(device, filter_mode, filter_):
     """
     Connects to a device using NETCONF, uses get with a subtree filter and stores the result
     to a file.
@@ -59,7 +59,7 @@ def get_and_save(device, filter_):
             password=password,
             hostkey_verify=False,
         ) as m:
-            res = m.get(filter=("subtree", filter_))
+            res = m.get(filter=(filter_mode, filter_))
             if res.ok:
                 string_to_file(
                     pretty_print_xml(res.data), f"output/out_read_{device}.xml"
@@ -98,7 +98,7 @@ def cli():
     pass
 
 
-@cli.command("read", short_help="NETCONF 'get' bulk job")
+@cli.command("read", short_help="NETCONF 'get' bulk job (subtree filter)")
 @click.argument("filter", type=click.File("r"), default="bulk_filter.xml")
 @click.argument("devices", type=click.File("r"), default="devices.txt")
 def nc_get(filter, devices):
@@ -109,7 +109,20 @@ def nc_get(filter, devices):
     filter_ = filter.read()
     devs = devices.readlines()
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        [executor.submit(get_and_save, dev.strip(), filter_) for dev in devs]
+        [executor.submit(get_and_save, dev.strip(), "subtree", filter_) for dev in devs]
+
+
+@cli.command("xpath", short_help="NETCONF 'get' bulk job (xpath filter)")
+@click.argument("xpath")
+@click.argument("devices", type=click.File("r"), default="devices.txt")
+def nc_get(xpath, devices):
+    """
+    Retrive configuration and state information from all devices in the
+    DEVICES file according the XPATH filter.
+    """
+    devs = devices.readlines()
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        [executor.submit(get_and_save, dev.strip(), "xpath", xpath) for dev in devs]
 
 
 @cli.command("write", short_help="NETCONF 'edit-config' bulk job")

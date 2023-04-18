@@ -4,14 +4,14 @@
 
 netconfBulkOps is a Python script for NETCONF bulk operations (get and edit-config) implemented as a minimum viable product (MVP).
 
-A simple inventory file is used to describe the devices. A second file, containing either the NETCONF configuration payload or a subtree-filter, will then be applied to every device in the inventory. The results of the bulk operation is stored in corresponding files.
+A simple inventory file is used to describe the devices. A second file, containing either the NETCONF configuration payload or a subtree-filter, will then be applied to every device in the inventory. Instead of a subtree-filter or configuraton payload a xPath can be used. The results of the bulk operation is stored in corresponding files.
 
 ![netconfBulkOps overview](doc/images/ncbo.png)
 
 netconfBulkOps is executed asynchronously using Python's [concurrent.futures](https://python.readthedocs.io/en/stable/library/concurrent.futures.html) [ThreadPoolExecutor](https://python.readthedocs.io/en/stable/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor) and is therefore pretty fast. 
 
 
-## Installation and usage
+## Installation
 
 ### Python based installation
 
@@ -87,7 +87,6 @@ In order to copy your `[DEVICES]` and `[FILTER]/[CONFIG]` files (see usage below
 
 ## Usage 
 
-
 ### Preparation
 
 Create a inventory file with all devices you want to connect to. Every line in the file represents a hostname or IP address. 
@@ -100,8 +99,7 @@ sw01.internal.domain.com
 10.90.255.245
 ```
 
-
-### Read data (NETCONF get)
+### Read data (NETCONF get) using a subtree-filter
 
 Create a file containing the subtree-filter you want to use (without the `<filter></filter>` tags).
 
@@ -123,6 +121,18 @@ Usage: netconfBulkOps.py read [FILTER] [DEVICES]
 
 After the script is completed, you'll find a file per device containing the results in the `output` directory (`output/out_read_[DEVICE NAME OR IP].xml`). 
 
+### Read data (NETCONF get) using xPath
+
+Start the script with the `netconfBulkOps.py xpath [XPATH] [DEVICES]` command. `XPATH` is your xpath-string and `DEVICES` is the inventory file (`devices.txt` is used as the default inventory file).
+
+```bash
+Usage: netconfBulkOps.py xpath [XPATH] [DEVICES]
+
+  Retrive configuration and state information from all devices in the
+  DEVICES file according the XPATH filter.
+```
+
+After the script is completed, you'll find a file per device containing the results in the `output` directory (`output/out_read_[DEVICE NAME OR IP].xml`). 
 
 ### Write data (NETCONF edit-config)
 
